@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var config = require('./webpack.config');
+var port = process.env.PORT || 3000;
 
 var server = new WebpackDevServer(webpack(config), {
   publicPath: config.output.publicPath,
@@ -60,7 +61,7 @@ server.app.get('/oscar', function(req, res) {
   ));
 });
 
-server.listen(3000, '0.0.0.0', function (err, result) {
+server.listen(port, '0.0.0.0', function (err, result) {
   if (err) {
     console.log(err);
   }
