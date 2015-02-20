@@ -2,19 +2,12 @@ var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var config = require('./webpack.config');
 
-new WebpackDevServer(webpack(config), {
+var server = new WebpackDevServer(webpack(config), {
   publicPath: config.output.publicPath,
   hot: true
-}).listen(3000, '0.0.0.0', function (err, result) {
-  if (err) {
-    console.log(err);
-  }
-
-  console.log('Listening at 0.0.0.0:3000');
 });
 
-var http = require('http');
-var app = http.createServer(function(req,res){
+server.app.get('/oscar', function(req, res) {
   res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify(
     {
@@ -66,4 +59,12 @@ var app = http.createServer(function(req,res){
     }
   ));
 });
-app.listen(4000);
+
+server.listen(3000, '0.0.0.0', function (err, result) {
+  if (err) {
+    console.log(err);
+  }
+
+  console.log('Listening at 0.0.0.0:3000');
+});
+

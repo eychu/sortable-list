@@ -1,18 +1,47 @@
 'use strict';
 
 var React = require('react');
+var _ = require('lodash');
 var ReactGridLayout = require('react-grid-layout');
+require('style!css!../css/styles.css');
 
 var SortableList = React.createClass({
+
   render() {
     return (
-      <ReactGridLayout className="layout" cols={12} rowHeight={30}>
-        <div key={1} _grid={{x: 0, y: 0, w: 1, h: 2}}>1</div>
-        <div key={2} _grid={{x: 1, y: 0, w: 1, h: 2}}>2</div>
-        <div key={3} _grid={{x: 2, y: 0, w: 1, h: 2}}>3</div>
+      <ReactGridLayout
+        className="list-group"
+        margin={[0, -1]}
+        cols={1}
+        rowHeight={42}
+        onDragStop={this.handleDragStop}
+        onDragStart={this.handleDragStart}
+      >
+        {this.generateItems()}
       </ReactGridLayout>
     );
+  },
+
+  generateItems() {
+    return _.map(this.props.items, function(title, i) {
+      var className = 'list-group-item ';
+      if (this.props.selectedItem.title === title) {className += 'active'}
+      return <a className={className} key={title} _grid={{x: 0, y: i, w: 1, h: 1}}>
+        <kbd>{i + 1}</kbd> {title}
+      </a>
+    }.bind(this))
+  },
+
+  handleDragStop(layout) {
+    var titles = _.pluck(_.sortBy(layout, 'y'), 'i');
+    this.props.updateItems(titles);
+  },
+
+  handleDragStart() {
+    var layoutItem = arguments[2];
+    this.props.selectItem(layoutItem['i']);
   }
+
 });
 
 module.exports = SortableList;
