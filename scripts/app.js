@@ -1,27 +1,14 @@
 'use strict';
 
 var React = require('react');
+var Qajax = require('qajax');
 var SortableList = require('./SortableList.js');
 
 var App = React.createClass({
 
-  getData(callback) {
-    var xmlhttp = new XMLHttpRequest();
-    var url = '/oscar';
-
-    xmlhttp.onreadystatechange = function() {
-      if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-        var data = JSON.parse(xmlhttp.responseText);
-        callback(data);
-      }
-    }.bind(this);
-    xmlhttp.open("GET", url, true);
-    xmlhttp.send();
-  },
-
   getInitialState() {
 
-    this.getData(function(data) {
+    Qajax.getJSON('/oscar.json').then(function(data) {
       var titles = data.programs.map(function(item) {
         return item['title']
       });
@@ -52,14 +39,24 @@ var App = React.createClass({
               />
             </div>
             <div className="col-md-6">
-              <pre>
-                {JSON.stringify(this.state.selectedItem, undefined, 2)}
-              </pre>
+              <div className="panel panel-default">
+                <div className="panel-heading">Selected item</div>
+                <div className="panel-body">
+                  <pre>
+                    {JSON.stringify(this.state.selectedItem, undefined, 2)}
+                  </pre>
+                </div>
+              </div>
             </div>
             <div className="col-md-6">
-              <pre>
-                {this.stringifyData(this.state.data.programs)}
-              </pre>
+              <div className="panel panel-default">
+                <div className="panel-heading">Stringify items list</div>
+                <div className="panel-body">
+                  <code>
+                    {this.stringifyData(this.state.data.programs)}
+                  </code>
+                </div>
+              </div>
             </div>
           </div>
         </div>

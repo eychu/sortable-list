@@ -8,7 +8,7 @@ var server = new WebpackDevServer(webpack(config), {
   hot: true
 });
 
-server.app.get('/oscar', function(req, res) {
+server.app.get('/oscar.json', function(req, res) {
   res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify(
     {
@@ -66,6 +66,6 @@ server.listen(port, '0.0.0.0', function (err, result) {
     console.log(err);
   }
 
-  console.log('Listening at 0.0.0.0:3000');
+  console.log('Listening at 0.0.0.0:'+port);
 });
 

@@ -23,17 +23,17 @@
     "url": "https://github.com/eychu/sortable-list/issues"
   },
   "homepage": "https://github.com/gaearon/sortable-list",
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
     "css-loader": "^0.9.1",
     "jsx-loader": "^0.12.2",
+    "lodash": "^3.2.0",
+    "qajax": "^1.1.0",
+    "react": "^0.12.2",
+    "react-grid-layout": "^0.7.1",
     "react-hot-loader": "^1.1.5",
     "style-loader": "^0.8.3",
     "webpack": "^1.5.3",
-    "webpack-dev-server": "1.7.0",
-    "lodash": "^3.2.0",
-    "react": "^0.12.2",
-    "react-grid-layout": "^0.7.1"
+    "webpack-dev-server": "1.7.0"
   }
 }
