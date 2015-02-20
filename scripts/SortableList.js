@@ -14,6 +14,7 @@ var SortableList = React.createClass({
         margin={[0, -1]}
         cols={1}
         rowHeight={42}
+        isResizable={false}
         onDragStop={this.handleDragStop}
         onDragStart={this.handleDragStart}
       >
@@ -26,9 +27,9 @@ var SortableList = React.createClass({
     return _.map(this.props.items, function(title, i) {
       var className = 'list-group-item ';
       if (this.props.selectedItem.title === title) {className += 'active'}
-      return <a className={className} key={title} _grid={{x: 0, y: i, w: 1, h: 1}}>
+      return <div className={className} key={title} _grid={{x: 0, y: i, w: 1, h: 1}}>
         <kbd>{i + 1}</kbd> {title}
-      </a>
+      </div>
     }.bind(this))
   },
 

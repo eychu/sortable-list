@@ -22,7 +22,6 @@ var App = React.createClass({
   getInitialState() {
 
     this.getData(function(data) {
-      console.log(data);
       var titles = data.programs.map(function(item) {
         return item['title']
       });
