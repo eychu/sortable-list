@@ -2,22 +2,22 @@
 
 var React = require('react');
 var Qajax = require('qajax');
-var SortableList = require('./SortableList.js');
+var _ = require('lodash');
+var BallotList = require('./BallotList.js');
+var OptionsList = require('./OptionsList.js');
 
 var App = React.createClass({
 
   getInitialState() {
 
     Qajax.getJSON('/oscar.json').then(function(data) {
-      var titles = data.programs.map(function(item) {
-        return item['title']
-      });
-      this.setState({data: data, titles: titles, selectedItem: {}});
+      this.setState({data: data, options: data.programs});
     }.bind(this));
 
     return {
       data: {},
-      titles: [],
+      options: {},
+      ballot: {},
       selectedItem: {}
     }
   },
@@ -30,15 +30,32 @@ var App = React.createClass({
         </div>
         <div className="panel-body">
           <div className="row">
-            <div className="col-md-6">
-              <SortableList
-                items={this.state.titles}
-                selectedItem={this.state.selectedItem}
-                selectItem={this.handleSelectItem}
-                updateItems={this.handleUpdateItems}
-              />
+            <div className="col-md-4">
+              <div className="panel panel-default">
+                <div className="panel-heading">Ballot</div>
+                <div className="panel-body">
+                  <BallotList
+                    items={this.getTitles(this.state.ballot)}
+                    selectedItem={this.state.selectedItem}
+                    selectItem={this.handleSelectItem}
+                    updateItems={this.handleUpdateBallot}
+                  />
+                </div>
+              </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
+              <div className="panel panel-default">
+                <div className="panel-heading">Options</div>
+                <div className="panel-body">
+                  <OptionsList
+                    items={this.getTitles(this.state.options)}
+                    selectedItem={this.state.selectedItem}
+                    selectItem={this.handleSelectItem}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="col-md-4">
               <div className="panel panel-default">
                 <div className="panel-heading">Selected item</div>
                 <div className="panel-body">
@@ -47,13 +64,11 @@ var App = React.createClass({
                   </pre>
                 </div>
               </div>
-            </div>
-            <div className="col-md-6">
               <div className="panel panel-default">
                 <div className="panel-heading">Stringify items list</div>
                 <div className="panel-body">
                   <code>
-                    {this.stringifyData(this.state.data.programs)}
+                    {this.stringifyData(this.state.ballot)}
                   </code>
                 </div>
               </div>
@@ -64,11 +79,14 @@ var App = React.createClass({
     )
   },
 
+  getTitles(items) {
+    return _.pluck(items, 'title')
+  },
+
   stringifyData(items) {
-    var resultArray = _.map(items, function(item, i) {
+    return _.map(items, function(item, i) {
       return (i + 1) + ' ' + item.caption + ' ' + item.programid;
-    });
-    return resultArray.join('; ');
+    }).join('; ');
   },
 
   handleSelectItem(title) {
@@ -76,12 +94,18 @@ var App = React.createClass({
     this.setState({selectedItem: item});
   },
 
-  handleUpdateItems(titles) {
-    var data = this.state.data;
-    data.programs = _.map(titles, function(title) {
-      return _.find(data.programs, {title: title});
+  handleUpdateBallot(titles) {
+    var ballot = this.getItemsByTitles(titles);
+    this.setState({
+      ballot: ballot,
+      options: _.difference(this.state.data.programs, ballot)
     });
-    this.setState({data: data, titles: titles});
+  },
+
+  getItemsByTitles(titles) {
+    return _.map(titles, function(title) {
+      return _.find(this.state.data.programs, {title: title});
+    }.bind(this));
   }
 
 });
