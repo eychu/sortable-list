@@ -1,6 +1,10 @@
 react sortable list
 =====================
 
+### Demo
+
+http://sortable-list.herokuapp.com
+
 ### Usage
 
 ```
@@ -8,6 +12,6 @@ npm install
 npm start
 open http://localhost:3000
 
-http://localhost:4000 //test json data
 ```
+
 
