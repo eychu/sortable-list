@@ -30,20 +30,18 @@ var App = React.createClass({
         </div>
         <div className="panel-body">
           <div className="row">
-            <div className="col-md-4">
+            <div className="col-md-8">
               <div className="panel panel-default">
                 <div className="panel-heading">Ballot</div>
                 <div className="panel-body">
                   <BallotList
-                    items={this.getTitles(this.state.ballot)}
+                    items={this.state.ballot}
                     selectedItem={this.state.selectedItem}
                     selectItem={this.handleSelectItem}
                     updateItems={this.handleUpdateBallot}
                   />
                 </div>
               </div>
-            </div>
-            <div className="col-md-4">
               <div className="panel panel-default">
                 <div className="panel-heading">Options</div>
                 <div className="panel-body">

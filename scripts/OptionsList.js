@@ -10,26 +10,27 @@ var OptionsList = React.createClass({
   mixins: [SortableMixin],
   sortableOptions: {
     group: 'ballot',
-    sort: false
+    sort: false,
+    handle: '.list-group-item'
   },
 
-  getInitialState: function() {
+  getInitialState() {
     return this.props;
   },
 
-  componentWillReceiveProps: function(nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.setState(nextProps);
   },
 
-  render: function() {
+  render() {
     return (
-      <ul className="list-group">
+      <div className="list-group option-container">
         {this.renderItems()}
-      </ul>
+      </div>
     )
   },
 
-  renderItems: function() {
+  renderItems() {
     var items = this.state.items;
     return _.map(items, function(item) {
       var selectedItem = this.state.selectedItem;
@@ -38,20 +39,21 @@ var OptionsList = React.createClass({
         classNames += 'active';
       }
       return (
-        <li
+        <div
           key={item}
           data-id={item}
           className={classNames}
           onClick={this.handleSelectItem.bind(this, item)}
           onTouchStart={this.handleSelectItem.bind(this, item)}
         >
+          <img className='list-group-img' style={{width: '50px', height: '50px'}} src="img/image.jpg" alt=""/>
           {item}
-        </li>
+        </div>
       )
     }.bind(this))
   },
 
-  handleSelectItem: function(title) {
+  handleSelectItem(title) {
     this.props.selectItem(title);
   }
 
