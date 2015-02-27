@@ -34,7 +34,7 @@ var OptionsList = React.createClass({
     var items = this.state.items;
     return _.map(items, function(item) {
       var selectedItem = this.state.selectedItem;
-      var classNames = 'list-group-item ';
+      var classNames = 'list-group-item option-item ';
       if (selectedItem.title === item) {
         classNames += 'active';
       }
@@ -46,8 +46,10 @@ var OptionsList = React.createClass({
           onClick={this.handleSelectItem.bind(this, item)}
           onTouchStart={this.handleSelectItem.bind(this, item)}
         >
-          <img className='list-group-img' style={{width: '50px', height: '50px'}} src="img/image.jpg" alt=""/>
-          {item}
+          <div className='image'>
+            <img className='list-group-img' src="img/image.jpg" />
+          </div>
+          <div className='title'>{item}</div>
         </div>
       )
     }.bind(this))

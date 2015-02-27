@@ -3,40 +3,77 @@
 }
 .list-group-item {
     padding: 0px 0px;
-    border: none;
     cursor: move;
+    margin-bottom: -1px;
 }
+.list-group-item:hover {
+    border: 1px solid white;
+}
+
 .list-group-img {
     margin-right: 0px;
 }
 
 .ballot-container {
-    width: 400px;
+    width: 402px;
 }
 .option-container {
     width: 240px;
 }
+.ballot-item {
+    color: #ffc2a2;
+    background-color: #aa5939;
+    border: 1px solid #551800;
+}
+.option-item {
+    color: #75AF96;
+    background-color: #0F5738;
+    border: 1px solid #003A21;
+}
 .order {
     width: 40px;
     display: inline-block;
-    color: #ffffff;
-    background-color: #800080;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    vertical-align: middle;
+    background-color: #803315;
 }
 .caption {
     width: 50px;
     display: inline-block;
-    color: #008000;
-    background-color: #808080;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+}
+.image {
+    height: 50px;
+    text-align: center;
+    display: inline-block;
+}
+.image > img {
+    vertical-align: middle;
+    max-height: 50px;
+    max-width: 50px;
 }
 .title {
-    width: 170px;
+    width: 167px;
     display: inline-block;
-    color: ivory;
-    background-color: seagreen;
+    text-overflow: ellipsis;
+    padding-left: 3px;
+    height: 50px;
+    line-height: 50px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: middle;
 }
 .play {
     width: 90px;
     display: inline-block;
-    color: coral;
-    background-color: #a3be8c;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    color: #d4886a;
+    background-color: #803315;
 }

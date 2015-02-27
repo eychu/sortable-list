@@ -49,7 +49,9 @@ var BallotList = React.createClass({
         >
           <div className='order'>{i + 1}</div>
           <div className='caption'>{this.getCaption(item)}</div>
-          <img className='list-group-img' style={{width: '50px', height: '50px'}} src="img/image.jpg" alt=""/>
+          <div className='image'>
+            <img className='list-group-img' src="img/image.jpg" />
+          </div>
           <div className='title'>{item}</div>
           <div className='play'>Play &#x25B6;</div>
         </div>
@@ -68,7 +70,7 @@ var BallotList = React.createClass({
 
   getClassNames(item) {
     var selectedItem = this.state.selectedItem;
-    var classNames = 'list-group-item ';
+    var classNames = 'list-group-item ballot-item ';
     if (selectedItem.title === item) {
       classNames += 'active';
     }
